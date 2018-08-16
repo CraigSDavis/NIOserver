@@ -1,3 +1,3 @@
 # NIOserver
 
-A description of this package.
+A simple Swift NIO server template
