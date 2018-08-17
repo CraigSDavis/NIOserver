@@ -25,7 +25,7 @@ public class NIOserver {
             .serverChannelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
             .childChannelInitializer { channel in
                 channel.pipeline.add(handler: BackPressureHandler()).then { v in
-                    channel.pipeline.add(handler: NIOhandler())
+                    channel.pipeline.add(handler: NIOhandler() as ChannelHandler)
                 }
             }
             
