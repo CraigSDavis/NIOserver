@@ -23,15 +23,19 @@ public class NIOserver {
         return ServerBootstrap(group: group)
             .serverChannelOption(ChannelOptions.backlog, value: 256)
             .serverChannelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
-    }
+        
+        //    .childChannelInitializer { channel in
+       //         channel.pipeline.add(handler: BackPressureHandler()).then { _ in ();,_  in
+       //             channel.pipeline.add(handler: NIOhandler())
+        //        }
+        }
+    
     
     func start() throws {
         guard let host = host else {
-            //throw QOTDError.invalidHost
             return print("invalid Host")
         }
         guard let port = port else {
-            //throw QOTDError.invalidPort
             return print("invalid port")
         }
         do {
