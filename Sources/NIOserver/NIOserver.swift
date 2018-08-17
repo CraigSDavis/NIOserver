@@ -23,11 +23,16 @@ public class NIOserver {
         return ServerBootstrap(group: group)
             .serverChannelOption(ChannelOptions.backlog, value: 256)
             .serverChannelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
-        
-        //    .childChannelInitializer { channel in
-       //         channel.pipeline.add(handler: BackPressureHandler()).then { _ in ();,_  in
-       //             channel.pipeline.add(handler: NIOhandler())
-        //        }
+            .childChannelInitializer { channel in
+                channel.pipeline.add(handler: BackPressureHandler()).then { v in
+                    channel.pipeline.add(handler: NIOhandler())
+                }
+            }
+            
+            .childChannelOption(ChannelOptions.socket(IPPROTO_TCP, TCP_NODELAY), value: 1)
+            .childChannelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
+            .childChannelOption(ChannelOptions.maxMessagesPerRead, value: 16)
+            .childChannelOption(ChannelOptions.recvAllocator, value: AdaptiveRecvByteBufferAllocator())
         }
     
     

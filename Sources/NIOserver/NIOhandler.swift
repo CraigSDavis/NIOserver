@@ -8,5 +8,23 @@
 import Foundation
 import NIO
 
-public class NIOhandler {}
+class NIOhandler: ChannelInboundHandler{
+    public typealias InboundIn = ByteBuffer
+    public typealias OutboundOut = IOData
+    
+    func channelRegistered(ctx: ChannelHandlerContext) {
+        print("Incoming connection registered")
+        // do server stuff here
+        
+        print("Closing connection")
+        ctx.close(promise: nil)
+    }
+    
+    public func errorCaught(ctx: ChannelHandlerContext, error: Error) {
+        print("error: ", error)
+        ctx.close(promise: nil)
+    }
+    
+
+}
 
